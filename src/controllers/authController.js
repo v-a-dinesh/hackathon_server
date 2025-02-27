@@ -1,5 +1,6 @@
 const Register = require("../utils/auth/register");
 const Login = require('../utils/auth/login');
+const {getUserData}=require("../utils/user/userFindUtil")
 exports.register = async (req, res) => {
     try {
         const result = await Register.register(req);
@@ -43,6 +44,25 @@ exports.login = async (req, res) => {
         });
     }
 };
+
+exports.getUserData = async (req, res) => {
+    try {
+        const result = await getUserData(req);
+        
+        if (result.status === "ok") {
+            return res.status(200).json(result);
+        } else {
+            return res.status(200).json(result);
+        }
+    } catch (error) {
+        return res.status(200).json({
+            status: "error",
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
 
 exports.forgotPassword = async (req, res) => {
     try {
